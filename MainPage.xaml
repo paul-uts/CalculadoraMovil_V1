@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CalculadoraMovil_PELP.MainPage">
+
+    <Grid RowDefinitions="*,*,Auto"
+          BackgroundColor="Grey">
+        
+        <!-- Operación -->
+        <Label Grid.Row="0" x:Name="lblOperacion"
+               Padding="30"
+               FontAttributes="Bold"
+               FontSize="60"
+               Text=""
+               HorizontalOptions="End"
+               MaxLines="1">
+        </Label>
+
+        <!-- Resultado -->
+        <Label Grid.Row="1" x:Name="lblResultado"
+               Padding="30"
+               FontAttributes="None"
+               FontSize="45"
+               Text=""
+               HorizontalOptions="End"
+               MaxLines="1">
+        </Label>
+
+        <!-- Teclado -->
+        <Grid Grid.Row="2"
+          Padding="10"
+          RowSpacing="0"
+          HeightRequest="500"
+          RowDefinitions="*,*,*,*,*"
+          ColumnDefinitions="*,*,*,*">
+            
+            <!-- Borrar -->
+            <Button x:Name="borrar"
+                    Text="C"
+                    TextColor="OrangeRed"
+                    Grid.Row="0" Grid.Column="0" 
+                    BackgroundColor="black" 
+                    WidthRequest="90" 
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="borrar_Clicked"/>
+
+            <!-- Atrás -->
+            <Button x:Name="atras"
+                    Text="←"
+                    TextColor="OrangeRed"
+                    Grid.Row="0" Grid.Column="3"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="atras_Clicked"/>
+
+            <!-- Porcentaje -->
+            <Button x:Name="porciento"
+                    Text="%"
+                    TextColor="Grey"
+                    Grid.Row="0" Grid.Column="1"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="porciento_Clicked"/>
+
+            <!-- División -->
+            <Button x:Name="division"
+                    Text="÷"
+                    TextColor="Grey"
+                    Grid.Row="0" Grid.Column="2"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="division_Clicked"/>
+
+            <!-- número 7 -->
+            <Button x:Name="siete"
+                    Text="7"
+                    TextColor="White"
+                    Grid.Row="1" Grid.Column="0"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="siete_Clicked"/>
+
+            <!-- número 8 -->
+            <Button x:Name="ocho"
+                    Text="8"
+                    TextColor="White"
+                    Grid.Row="1" Grid.Column="1"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="ocho_Clicked"/>
+
+            <!-- número 9 -->
+            <Button x:Name="nueve"
+                    Text="9"
+                    TextColor="White"
+                    Grid.Row="1" Grid.Column="2"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="nueve_Clicked"/> 
+
+            <!-- Multiplicación  -->
+            <Button x:Name="multiplicacion"
+                    Text="×"
+                    TextColor="Gray"
+                    Grid.Row="1" Grid.Column="3"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="multiplicacion_Clicked"/>
+
+            <!-- número 4 -->
+            <Button x:Name="cuatro"
+                    Text="4"
+                    TextColor="White"
+                    Grid.Row="2" Grid.Column="0"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="cuatro_Clicked"/>
+
+            <!-- número 5 -->
+            <Button x:Name="cinco"
+                    Text="5"
+                    TextColor="White"
+                    Grid.Row="2" Grid.Column="1"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="cinco_Clicked"/>
+
+            <!-- número 6-->
+            <Button x:Name="seis"
+                    Text="6"
+                    TextColor="White"
+                    Grid.Row="2" Grid.Column="2"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="seis_Clicked"/>
+
+            <!-- Restar -->
+            <Button x:Name="resta"
+                    Text="−"
+                    TextColor="Gray"
+                    Grid.Row="2" Grid.Column="3"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="resta_Clicked"/>
+
+            <!-- número 1 -->
+            <Button x:Name="uno"
+                    Text="1"
+                    TextColor="White"
+                    Grid.Row="3" Grid.Column="0"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="uno_Clicked"/>
+
+            <!-- número 2 -->
+            <Button x:Name="dos"
+                    Text="2"
+                    TextColor="White"
+                    Grid.Row="3" Grid.Column="1"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="dos_Clicked"/>
+
+            <!-- número 3 -->
+            <Button x:Name="tres"
+                    Text="3"
+                    TextColor="White"
+                    Grid.Row="3" Grid.Column="2"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="tres_Clicked"/>
+
+            <!-- Sumar -->
+            <Button x:Name="sumar"
+                    Text="+"
+                    TextColor="Gray"
+                    Grid.Row="3" Grid.Column="3"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="sumar_Clicked"/> 
+
+            <!-- +/- -->
+            <Button x:Name="cambiarSigno"
+                    Text="+/−"
+                    TextColor="White"
+                    Grid.Row="4" Grid.Column="0"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="40"
+                    FontAttributes="Bold"
+                    Clicked="cambiarSigno_Clicked"/>
+
+            <!-- número 0 -->
+            <Button x:Name="cero"
+                    Text="0"
+                    TextColor="White"
+                    Grid.Row="4" Grid.Column="1"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="cero_Clicked"/>
+
+            <!-- Decimal (.) -->
+            <Button x:Name="decimal"
+                    Text="."
+                    TextColor="White"
+                    Grid.Row="4" Grid.Column="2"
+                    BackgroundColor="Black"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="decimal_Clicked"/>
+
+            <!-- Igual -->
+            <Button x:Name="total"
+                    Text="="
+                    TextColor="Black"
+                    Grid.Row="4" Grid.Column="3"
+                    BackgroundColor="White"
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    CornerRadius="45"
+                    FontSize="50"
+                    FontAttributes="Bold"
+                    Clicked="total_Clicked"/>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

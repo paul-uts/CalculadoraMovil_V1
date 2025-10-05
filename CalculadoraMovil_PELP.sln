@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculadoraMovil_PELP", "CalculadoraMovil_PELP.csproj", "{016E0890-CED0-42DE-A392-FC5D3A51F884}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculadorMovil_PELP_Test", "..\CalculadorMovil_PELP_Test\CalculadorMovil_PELP_Test.csproj", "{A6D4A419-080B-41D1-A910-A051BBFA0400}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculadoraMovil_PELP_Lib", "..\CalculadoraMovil_PELP_Lib\CalculadoraMovil_PELP_Lib.csproj", "{64004600-1D04-4741-B9A6-97C3EE6C2F3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{016E0890-CED0-42DE-A392-FC5D3A51F884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{016E0890-CED0-42DE-A392-FC5D3A51F884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{016E0890-CED0-42DE-A392-FC5D3A51F884}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{016E0890-CED0-42DE-A392-FC5D3A51F884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{016E0890-CED0-42DE-A392-FC5D3A51F884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{016E0890-CED0-42DE-A392-FC5D3A51F884}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A6D4A419-080B-41D1-A910-A051BBFA0400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6D4A419-080B-41D1-A910-A051BBFA0400}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6D4A419-080B-41D1-A910-A051BBFA0400}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6D4A419-080B-41D1-A910-A051BBFA0400}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64004600-1D04-4741-B9A6-97C3EE6C2F3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64004600-1D04-4741-B9A6-97C3EE6C2F3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64004600-1D04-4741-B9A6-97C3EE6C2F3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64004600-1D04-4741-B9A6-97C3EE6C2F3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {162D1311-48F6-421C-B751-973CA027A7F0}
+	EndGlobalSection
+EndGlobal
