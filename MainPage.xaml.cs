@@ -24,15 +24,21 @@ namespace CalculadoraMovil_PELP
             multiplicacion.IsEnabled = false;
             sumar.IsEnabled = false;
             resta.IsEnabled = false;
+            if (lblResultado.Text.Length == 0 || lblOperacion.Text.Length == 0)
+                cambiarSigno.IsEnabled = false;
         }
 
         private void activadorBotones()
         {
             if (lblOperacion.Text.Length > 0)
             {
-                if (!lblOperacion.Text.Contains(signo))
+                if (!lblOperacion.Text.Contains(signo) || (lblResultado.Text.Length>0 && lblOperacion.Text.Contains(signo)))
                 {
-                    activadorPorcentaje();
+                    if (!lblOperacion.Text.EndsWith('%'))
+                        activadorPorcentaje();
+
+                    if (lblResultado.Text.Length != 0 || !lblOperacion.Text.Contains(signo))
+                        cambiarSigno.IsEnabled = true;
 
                     division.IsEnabled = true;
                     multiplicacion.IsEnabled = true;
@@ -45,22 +51,74 @@ namespace CalculadoraMovil_PELP
             
         }
 
+        private void desactivadorNumeros()
+        {
+            cero.IsEnabled = false;
+            uno.IsEnabled = false;
+            dos.IsEnabled = false;
+            tres.IsEnabled = false;
+            cuatro.IsEnabled = false;
+            cinco.IsEnabled = false;
+            seis.IsEnabled = false;
+            siete.IsEnabled = false;
+            ocho.IsEnabled = false;
+            nueve.IsEnabled = false;
+            punto.IsEnabled = false;
+        }
+
+        private void activadorNumeros()
+        {
+            if (!lblOperacion.Text.EndsWith('%'))
+            {
+                cero.IsEnabled = true;
+                uno.IsEnabled = true;
+                dos.IsEnabled = true;
+                tres.IsEnabled = true;
+                cuatro.IsEnabled = true;
+                cinco.IsEnabled = true;
+                seis.IsEnabled = true;
+                siete.IsEnabled = true;
+                ocho.IsEnabled = true;
+                nueve.IsEnabled = true;
+                punto.IsEnabled= true;
+            }
+
+        }
+
         private void activadorPorcentaje()
         {
             if (lblOperacion.Text.Contains(signo) && !lblOperacion.Text.EndsWith(signo))
                 porciento.IsEnabled = true;
-            else
+            else if (lblOperacion.Text.EndsWith('%') || lblOperacion.Text.Length == 0)
+            {
                 porciento.IsEnabled = false;
+                activadorBotones();
+            }
+                
         }
 
         private double asignarNum2(char signo)
         {
-            int indice = lblOperacion.Text.IndexOf(signo);
+            int indice;
 
             string num2 = "";
 
-            for (int i = indice+1; i < lblOperacion.Text.Length; i++)
-                num2 += lblOperacion.Text[i];
+            if (lblOperacion.Text.StartsWith('-'))
+            {
+                string alreves = "";
+                for (int i = lblOperacion.Text.Length - 1; !(lblOperacion.Text[i] == signo); i--)
+                    alreves += lblOperacion.Text[i];
+
+                for (int i = alreves.Length-1; i >= 0 ; i--)
+                    num2 += alreves[i];
+            }
+            else
+            {
+                indice = lblOperacion.Text.IndexOf(signo);
+
+                for (int i = indice + 1; i < lblOperacion.Text.Length; i++)
+                    num2 += lblOperacion.Text[i];
+            }
 
             return Convert.ToDouble(num2);
         }
@@ -82,16 +140,61 @@ namespace CalculadoraMovil_PELP
                     lblResultado.Text = (num1 /= asignarNum2(signo)).ToString();
                     break;
             }
+
+            if (lblOperacion.Text.Contains(signo) && lblResultado.Text.Length > 0)
+                activadorBotones();
         }
 
         private void validacionCero()
         {
-            if (lblOperacion.Text.Length == 0 || lblOperacion.Text.EndsWith(signo))
+            if (lblOperacion.Text.Length == 0)
                 lblOperacion.Text += "0";
-            else if (!lblOperacion.Text.Contains(signo) && lblOperacion.Text.Contains('.'))
-                lblOperacion.Text += "0";
-            else if (lblOperacion.Text.EndsWith(signo) && asignarNum2(signo) != 0)
-                lblOperacion.Text += "0";
+            else if (lblOperacion.Text.Contains('.'))
+            {
+                if (!lblOperacion.Text.Contains(signo))
+                {
+                    if (lblOperacion.Text.Contains('.'))
+                        lblOperacion.Text += "0";
+                    else if (lblOperacion.Text.EndsWith('0') || char.IsDigit(lblOperacion.Text[lblOperacion.Text.Length - 1]))
+                        lblOperacion.Text += "0";
+                }
+                else if (lblOperacion.Text.Contains(signo))
+                {
+                    if (lblOperacion.Text.EndsWith(signo))
+                        lblOperacion.Text += "0";
+                    else if (lblOperacion.Text.EndsWith('.'))
+                        lblOperacion.Text += "0";
+                    else if (lblOperacion.Text.EndsWith('0') || char.IsDigit(lblOperacion.Text[lblOperacion.Text.Length - 1]))
+                        lblOperacion.Text += "0";
+                }
+            }
+        }
+
+        private void signos(char signo)
+        {
+            if (lblResultado.Text.Length > 0)
+            {
+                lblOperacion.Text = lblResultado.Text;
+                lblResultado.Text = "";
+            }
+
+            if (lblOperacion.Text.Contains(signo) && lblResultado.Text.Length > 0)
+            {
+                string excepcion = "";
+
+                for (int i = 0; i < lblOperacion.Text.IndexOf(signo); i++)
+                    excepcion += lblOperacion.Text[i];
+
+                numero1 = Convert.ToDouble(excepcion);
+            }
+            else 
+                numero1 = Convert.ToDouble(lblOperacion.Text);
+
+
+            lblOperacion.Text += signo;
+
+            desactivadorBotones();
+            activadorNumeros();
         }
 
         private void cero_Clicked(object sender, EventArgs e)
@@ -99,7 +202,7 @@ namespace CalculadoraMovil_PELP
             validacionCero();
             activadorBotones();
 
-            if (lblOperacion.Text.Contains(signo) && asignarNum2(signo) != 0)
+            if (lblOperacion.Text.Contains(signo) && asignarNum2(signo) != 0 && !lblOperacion.Text.EndsWith(signo))
                 calcularResultado(numero1, signo);
         }
 
@@ -206,40 +309,55 @@ namespace CalculadoraMovil_PELP
 
         private void sumar_Clicked(object sender, EventArgs e)
         {
-            numero1 = Convert.ToDouble(lblOperacion.Text);
             signo = '+';
-            lblOperacion.Text += signo;
 
-            desactivadorBotones();
+            if (lblOperacion.Text.EndsWith('%'))
+            {
+                lblOperacion.Text = lblResultado.Text;
+                lblResultado.Text = "";
+            }
+
+            signos(signo);
         }
 
         private void resta_Clicked(object sender, EventArgs e)
         {
-            numero1 = Convert.ToDouble(lblOperacion.Text);
             signo = '-';
-            lblOperacion.Text += signo;
 
-            desactivadorBotones();
+            if (lblOperacion.Text.EndsWith('%'))
+            {
+                lblOperacion.Text = lblResultado.Text;
+                lblResultado.Text = "";
+            }
+
+            signos(signo);
         }
 
         private void multiplicacion_Clicked(object sender, EventArgs e)
         {
-            numero1 = Convert.ToDouble(lblOperacion.Text);
             // ×
             signo = '×';
-            lblOperacion.Text += signo;
 
-            desactivadorBotones();
+            if (lblOperacion.Text.EndsWith('%'))
+            {
+                lblOperacion.Text = lblResultado.Text;
+                lblResultado.Text = "";
+            }
+
+            signos(signo);
         }
 
         private void division_Clicked(object sender, EventArgs e)
         {
-            numero1 = Convert.ToDouble(lblOperacion.Text);
             // ÷
             signo = '÷';
-            lblOperacion.Text += signo;
+            if (lblOperacion.Text.EndsWith('%'))
+            {
+                lblOperacion.Text = lblResultado.Text;
+                lblResultado.Text = "";
+            }
 
-            desactivadorBotones();
+            signos(signo);
         }
 
         private void atras_Clicked(object sender, EventArgs e)
@@ -279,6 +397,8 @@ namespace CalculadoraMovil_PELP
 
         private void porciento_Clicked(object sender, EventArgs e)
         {
+            lblOperacion.Text += '%';
+
             int indice = lblOperacion.Text.IndexOf(signo);
 
             string num1 = "";
@@ -288,7 +408,7 @@ namespace CalculadoraMovil_PELP
             numero1 = Convert.ToDouble(num1);
 
             string num2 = "";
-            for (int i = indice + 1; i < lblOperacion.Text.Length; i++)
+            for (int i = indice + 1; i < lblOperacion.Text.Length-1; i++)
                 num2 += lblOperacion.Text[i];
 
             double por100toSumRes = numero1 * (Convert.ToDouble(num2) / 100);
@@ -297,25 +417,25 @@ namespace CalculadoraMovil_PELP
             switch (signo)
             {
                 case '+':
-                    lblOperacion.Text = (numero1 += por100toSumRes).ToString();
+                    lblResultado.Text = (numero1 += por100toSumRes).ToString();
                     break;
                 case '-':
-                    lblOperacion.Text = (numero1 -= por100toSumRes).ToString();
+                    lblResultado.Text = (numero1 -= por100toSumRes).ToString();
                     break;
                 case '×':
-                    lblOperacion.Text = (numero1 *= por100toMulDiv).ToString();
+                    lblResultado.Text = (numero1 *= por100toMulDiv).ToString();
                     break;
                 case '÷':
-                    lblOperacion.Text = (numero1 /= por100toMulDiv).ToString();
+                    lblResultado.Text = (numero1 /= por100toMulDiv).ToString();
                     break;
             }
 
-            signo = '_'; lblResultado.Text = ""; activadorBotones();
+            signo = '_'; activadorBotones(); porciento.IsEnabled = false; desactivadorNumeros();
         }
 
         private void cambiarSigno_Clicked(object sender, EventArgs e)
         {
-            if (lblOperacion.Text.Contains(signo))
+            if (lblOperacion.Text.Contains(signo) || lblResultado.Text.Length > 0)
             {
                 lblOperacion.Text = (Convert.ToDouble(lblResultado.Text) * -1).ToString();
                 signo = '_';
@@ -332,6 +452,7 @@ namespace CalculadoraMovil_PELP
             lblOperacion.Text = "";
             lblResultado.Text = "";
             desactivadorBotones();
+            activadorNumeros();
         }
 
         private void total_Clicked(object sender, EventArgs e)

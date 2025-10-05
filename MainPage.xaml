@@ -269,7 +269,7 @@
                     Clicked="cero_Clicked"/>
 
             <!-- Decimal (.) -->
-            <Button x:Name="decimal"
+            <Button x:Name="punto"
                     Text="."
                     TextColor="White"
                     Grid.Row="4" Grid.Column="2"
