@@ -125,21 +125,55 @@ namespace CalculadoraMovil_PELP
 
         private void calcularResultado(double num1, char signo)
         {
+            double num2;
+            string resultado = "";
+            string mantener = "";
             switch (signo)
             {
                 case '+':
-                    lblResultado.Text = (num1 += asignarNum2(signo)).ToString();
+                    num2 = asignarNum2(signo);
+                    if (num2 != 0)
+                        resultado = (num1 += num2).ToString();
+                    else
+                        resultado = num1.ToString();
                     break;
                 case '-':
-                    lblResultado.Text = (num1 -= asignarNum2(signo)).ToString();
+                    num2 = asignarNum2(signo);
+                    if (num2 != 0)
+                        resultado = (num1 -= num2).ToString();
+                    else
+                        resultado = num1.ToString();
                     break;
                 case '×':
-                    lblResultado.Text = (num1 *= asignarNum2(signo)).ToString();
+                    num2 = asignarNum2(signo);
+                    if (num2 != 0)
+                        resultado = (num1 *= num2).ToString();
+                    else
+                        resultado = "0";
                     break;
                 case '÷':
-                    lblResultado.Text = (num1 /= asignarNum2(signo)).ToString();
+                    num2 = asignarNum2(signo);
+                    if (num2 != 0)
+                        resultado = (num1 *= num2).ToString();
+                    else
+                        resultado = "0";
                     break;
             }
+
+            if (resultado.Contains('.'))
+            {
+                int posicion = resultado.IndexOf('.');
+                if (resultado.Length - (posicion + 1) > 4)
+                {
+                    for (int i = 0; i < posicion + 4; i++)
+                        mantener += resultado[i];
+
+                    resultado = mantener;
+                }
+            }
+
+            lblResultado.Text = resultado;
+
 
             if (lblOperacion.Text.Contains(signo) && lblResultado.Text.Length > 0)
                 activadorBotones();
@@ -168,6 +202,8 @@ namespace CalculadoraMovil_PELP
                         lblOperacion.Text += "0";
                 }
             }
+            else
+                lblOperacion.Text += "0";
         }
 
         private void signos(char signo)
@@ -368,7 +404,6 @@ namespace CalculadoraMovil_PELP
             {
                 mantener += lblOperacion.Text[i];
             }
-                
 
             lblOperacion.Text = mantener;
 
@@ -386,13 +421,20 @@ namespace CalculadoraMovil_PELP
                 else
                     desactivadorBotones();
             }
-                
+
 
             if (lblOperacion.Text.EndsWith(signo))
             {
                 lblResultado.Text = "";
                 desactivadorBotones();
             }
+            else
+            {
+                calcularResultado(numero1, signo);
+                activadorBotones();
+                activadorNumeros();
+            }
+
         }
 
         private void porciento_Clicked(object sender, EventArgs e)
@@ -414,23 +456,39 @@ namespace CalculadoraMovil_PELP
             double por100toSumRes = numero1 * (Convert.ToDouble(num2) / 100);
             double por100toMulDiv = (Convert.ToDouble(num2) / 100);
 
+            string resultado = "";
+            string mantener = "";
             switch (signo)
             {
                 case '+':
-                    lblResultado.Text = (numero1 += por100toSumRes).ToString();
+                    resultado = (numero1 += por100toSumRes).ToString();
                     break;
                 case '-':
-                    lblResultado.Text = (numero1 -= por100toSumRes).ToString();
+                    resultado = (numero1 -= por100toSumRes).ToString();
                     break;
                 case '×':
-                    lblResultado.Text = (numero1 *= por100toMulDiv).ToString();
+                    resultado = (numero1 *= por100toMulDiv).ToString();
                     break;
                 case '÷':
-                    lblResultado.Text = (numero1 /= por100toMulDiv).ToString();
+                    resultado = (numero1 /= por100toMulDiv).ToString();
                     break;
             }
 
-            signo = '_'; activadorBotones(); porciento.IsEnabled = false; desactivadorNumeros();
+            if (resultado.Contains('.'))
+            {
+                int posicion = resultado.IndexOf('.');
+                if (resultado.Length - (posicion + 1) > 4)
+                {
+                    for (int i = 0; i < posicion + 4; i++)
+                        mantener += resultado[i];
+
+                    resultado = mantener;
+                }
+            }
+
+            lblResultado.Text = resultado;
+
+             activadorBotones(); porciento.IsEnabled = false; desactivadorNumeros();
         }
 
         private void cambiarSigno_Clicked(object sender, EventArgs e)
