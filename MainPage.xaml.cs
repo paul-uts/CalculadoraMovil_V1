@@ -427,6 +427,7 @@ namespace CalculadoraMovil_PELP
             {
                 lblResultado.Text = "";
                 desactivadorBotones();
+                activadorPorcentaje();
             }
             else
             {
@@ -447,30 +448,34 @@ namespace CalculadoraMovil_PELP
             for (int i = 0; i < indice; i++)
                 num1 += lblOperacion.Text[i];
 
-            numero1 = Convert.ToDouble(num1);
+            double Num1 = Convert.ToDouble(num1);
 
             string num2 = "";
             for (int i = indice + 1; i < lblOperacion.Text.Length-1; i++)
                 num2 += lblOperacion.Text[i];
 
-            double por100toSumRes = numero1 * (Convert.ToDouble(num2) / 100);
-            double por100toMulDiv = (Convert.ToDouble(num2) / 100);
+            double por100to;
+
+            if (signo == '+' || signo == '-')
+                por100to = Num1 * (Convert.ToDouble(num2) / 100);
+            else
+                por100to = (Convert.ToDouble(num2) / 100);
 
             string resultado = "";
             string mantener = "";
             switch (signo)
             {
                 case '+':
-                    resultado = (numero1 += por100toSumRes).ToString();
+                    resultado = (Num1 += por100to).ToString();
                     break;
                 case '-':
-                    resultado = (numero1 -= por100toSumRes).ToString();
+                    resultado = (Num1 -= por100to).ToString();
                     break;
                 case '×':
-                    resultado = (numero1 *= por100toMulDiv).ToString();
+                    resultado = (Num1 *= por100to).ToString();
                     break;
                 case '÷':
-                    resultado = (numero1 /= por100toMulDiv).ToString();
+                    resultado = (Num1 /= por100to).ToString();
                     break;
             }
 
