@@ -154,7 +154,7 @@ namespace CalculadoraMovil_PELP
                 case '÷':
                     num2 = asignarNum2(signo);
                     if (num2 != 0)
-                        resultado = (num1 *= num2).ToString();
+                        resultado = (num1 /= num2).ToString();
                     else
                         resultado = "0";
                     break;
